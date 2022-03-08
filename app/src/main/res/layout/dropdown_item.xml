@@ -1,0 +1,10 @@
+<TextView xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Textview"
+    android:padding="16dp"
+    android:textColor="@color/green"
+    android:textStyle="bold"
+    android:textSize="14sp"
+    tools:ignore="NamespaceTypo" />

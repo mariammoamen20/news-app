@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/drawable-anydpi/ic_category.xml" value="0.1405" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/drawable-anydpi/ic_list.xml" value="0.1" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/drawable-anydpi/ic_settings.xml" value="0.1405" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/drawable-v24/tab_unselected_background.xml" value="0.1" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/drawable/tab_background.xml" value="0.1" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/drawable/tab_selected_background.xml" value="0.1" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/drawable/toolbar_background.xml" value="0.1" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/font/font.xml" value="0.18888888888888888" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/layout/activity_home.xml" value="0.22" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/layout/activity_news_item.xml" value="0.22" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/layout/activity_splash.xml" value="0.16" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/layout/app_bar_home.xml" value="0.2" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/layout/content_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/layout/dropdown_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/layout/fragment_categories.xml" value="0.16" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/layout/fragment_news.xml" value="0.13240740740740742" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/layout/fragment_settings.xml" value="0.18" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/layout/left_side_category.xml" value="0.20416666666666666" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/layout/list_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/layout/news_item.xml" value="0.22" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/layout/news_item_details.xml" value="0.20416666666666666" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/layout/right_side_category.xml" value="0.16" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
