@@ -9,8 +9,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.news.Constants
 import com.example.news.R
@@ -36,11 +39,12 @@ class NewsFragment: Fragment() {
             return news_fragment
         }
     }
-    lateinit var category: Category
+     var category= Category("",0,0,0)
     lateinit var tab_layout : TabLayout
     lateinit var progress_bar : ProgressBar
     lateinit var news_recycler_view: RecyclerView
     lateinit var news_adapter : NewAdapter
+    lateinit var news_view_model : NewsViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,11 +57,36 @@ class NewsFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //initialize
         initViews()
+        subscribesToLiveData()
+        news_view_model.getNewsResources(category)
 
 
         //functions
-        getNewsResources()
 
+    }
+
+     fun subscribesToLiveData() {
+        news_view_model.sources_livedata.observe(viewLifecycleOwner) {
+            addSourcesToTabLayout(it)
+        }
+         news_view_model.news_live_data.observe(viewLifecycleOwner) {
+             showNews(it)
+         }
+         news_view_model.progress_bar_live_data.observe(viewLifecycleOwner){
+             progress_bar.isVisible = it
+         }
+         news_view_model.message_live_data.observe(viewLifecycleOwner){
+             Toast.makeText(activity,it,Toast.LENGTH_SHORT).show()
+         }
+     }
+
+     fun showNews(news_list: List<ArticlesItem?>?) {
+         news_adapter.changData(news_list)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        news_view_model = ViewModelProvider(this).get(NewsViewModel::class.java)
     }
     private fun initViews() {
         tab_layout = requireView().findViewById(R.id.tab_layout)
@@ -81,24 +110,6 @@ class NewsFragment: Fragment() {
 
     }
 
-    fun getNewsResources() {
-        ApiManger.getApis()
-            .getSources(Constants.API_KEY,category.id)
-            .enqueue(object : Callback<SourceResponse> {
-                //response hege mn server hna
-                override fun onResponse(
-                    call: Call<SourceResponse>,
-                    response: Response<SourceResponse>
-                ) {
-                    progress_bar.isVisible = false
-                    addSourcesToTabLayout(response.body()?.sources)
-                }
-                //fe h7alt lw el call fail w mafesh data gt
-                override fun onFailure(call: Call<SourceResponse>, t: Throwable) {
-                    Log.e("error",t.localizedMessage)
-                }
-            })
-    }
 
     private fun addSourcesToTabLayout(sources: List<SourcesItem?>?) {
         sources?.forEach{
@@ -110,7 +121,7 @@ class NewsFragment: Fragment() {
         tab_layout.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val source = tab?.tag as SourcesItem
-                getNewBySource(source)
+                news_view_model.getNewBySource(source)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -118,29 +129,15 @@ class NewsFragment: Fragment() {
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
-
+                val source = tab?.tag as SourcesItem
+                news_view_model.getNewBySource(source)
             }
 
         })
 
-        tab_layout.getTabAt(1)?.select()
+        tab_layout.getTabAt(0)?.select()
 
     }
 
-    fun getNewBySource(source: SourcesItem) {
-        progress_bar.isVisible = true
-        ApiManger.getApis()
-            .getNewsResources(Constants.API_KEY,source?.id?:"")
-            .enqueue(object :Callback<NewsResponse>{
-                override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
-                    progress_bar.isVisible = false
-                    news_adapter.changData(response.body()?.articles)
-                }
-
-                override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
-                    progress_bar.isVisible = false
-                }
-            })
-    }
 
 }
