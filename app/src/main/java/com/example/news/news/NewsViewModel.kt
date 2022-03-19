@@ -1,7 +1,6 @@
 package com.example.news.news
 
-import ArticlesItem
-import NewsResponse
+
 import android.util.Log
 import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +8,8 @@ import androidx.lifecycle.ViewModel
 import com.example.news.Constants
 import com.example.news.api.ApiManger
 import com.example.news.categories.Category
+import com.example.news.model.ArticlesItem
+import com.example.news.model.NewsResponse
 import com.example.news.model.SourceResponse
 import com.example.news.model.SourcesItem
 import retrofit2.Call

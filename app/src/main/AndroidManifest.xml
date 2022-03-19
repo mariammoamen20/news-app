@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activites.NewsItemActivity"
+            android:name=".newsitem.NewsItemActivity"
             android:exported="false" />
         <activity
             android:name=".activites.MainActivity"

@@ -1,6 +1,6 @@
 package com.example.news.api
 
-import NewsResponse
+import com.example.news.model.NewsResponse
 import com.example.news.model.SourceResponse
 import retrofit2.Call
 import retrofit2.http.GET

@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.news.R
+import com.example.news.databinding.FragmentCategoriesBinding
+
 //      technology
 class CategoriesFragment : Fragment(){
-    lateinit var category_recycler_view : RecyclerView
+    lateinit var fragment_categories_binding : FragmentCategoriesBinding
+    //lateinit var category_recycler_view : RecyclerView
     val categories = listOf(
         Category("sports",R.drawable.ball,R.string.sports,R.color.red),
         Category("technology",R.drawable.politics,R.string.technology,R.color.blue),
@@ -26,13 +30,17 @@ class CategoriesFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_categories,container,false)
+        fragment_categories_binding = DataBindingUtil.inflate(inflater,R.layout.fragment_categories,container,false)
+        return fragment_categories_binding.root
+
+        //return inflater.inflate(R.layout.fragment_categories,container,false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        category_recycler_view = requireView().findViewById(R.id.recycler_view)
-        category_recycler_view.adapter = category_adpater
+        //category_recycler_view = requireView().findViewById(R.id.recycler_view)
+
+        fragment_categories_binding.recyclerView.adapter = category_adpater
         category_adpater.on_item_click_listeners = object : CategoryAdaper.OnItemClickListeners{
             override fun onItemClick(position: Int, category: Category) {
                on_category_click_listeners?.onCategoryClick(category)

@@ -11,17 +11,14 @@ import com.example.news.R
 import com.example.news.categories.CategoriesFragment
 import com.example.news.categories.Category
 import com.example.news.news.NewsFragment
-import com.example.news.settings.SettingsFragment
 
 
 class HomeActivity : AppCompatActivity() {
     lateinit var drawer_layout: DrawerLayout
     lateinit var image_drawe: ImageView
     lateinit var categerioes_icon: View
-    lateinit var settings_icon: View
     lateinit var toolbar_text : TextView
     val categories_fragment = CategoriesFragment()
-    val settings_fragment = SettingsFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -44,7 +41,6 @@ class HomeActivity : AppCompatActivity() {
         image_drawe = findViewById(R.id.toolbar_image)
         toolbar_text = findViewById(R.id.toolbar_title)
         categerioes_icon = findViewById(R.id.categories_linear_layout)
-        settings_icon = findViewById(R.id.settings_linear_layout)
         toolbar_text.text = "Category"
 
         clickListeners()
@@ -61,11 +57,7 @@ class HomeActivity : AppCompatActivity() {
 
         }
 
-        settings_icon.setOnClickListener {
-            pushFragment(settings_fragment)
-            toolbar_text.text = "Settings"
-            drawer_layout.close()
-        }
+
     }
 
     fun pushFragment(fragment : Fragment , add_to_back_stack: Boolean = false){

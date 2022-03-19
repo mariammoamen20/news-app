@@ -61,29 +61,6 @@
                     android:textColor="@color/black"
                     />
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/settings_linear_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                >
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_settings"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/settings"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginStart="10dp"
-                    android:textColor="@color/black"
-                    />
-            </LinearLayout>
 
         </LinearLayout>
 

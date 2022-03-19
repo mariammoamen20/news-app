@@ -1,5 +1,6 @@
-import com.google.gson.annotations.SerializedName
+package com.example.news.model
 
+import com.google.gson.annotations.SerializedName
 data class NewsResponse(
 
 	@field:SerializedName("totalResults")

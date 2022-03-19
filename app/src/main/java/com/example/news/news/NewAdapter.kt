@@ -1,38 +1,34 @@
-package com.example.news.adapter
+package com.example.news.news
 
-import ArticlesItem
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.news.R
-import com.makeramen.roundedimageview.RoundedImageView
+import com.example.news.databinding.NewsItemBinding
+import com.example.news.model.ArticlesItem
 
 class NewAdapter(var list_item: List<ArticlesItem?>?) :
     RecyclerView.Adapter<NewAdapter.NewsViewHolder>() {
-    class NewsViewHolder(item_view: View) : RecyclerView.ViewHolder(item_view) {
-        val news_rounded_image: RoundedImageView = item_view.findViewById(R.id.news_image)
-        val author_text: TextView = item_view.findViewById(R.id.author_text)
-        val title_text: TextView = item_view.findViewById(R.id.title_text)
-        val date_text: TextView = item_view.findViewById(R.id.date_text)
+    class NewsViewHolder(val item_binding:NewsItemBinding) : RecyclerView.ViewHolder(item_binding.root) {
+        fun bind(artical_item : ArticlesItem? ){
+             item_binding.item = artical_item
+             item_binding.invalidateAll()
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val view_holder = LayoutInflater.from(parent.context)
+       /* val view_holder = LayoutInflater.from(parent.context)
             .inflate(R.layout.news_item, parent, false)
-        return NewsViewHolder(view_holder)
+        return NewsViewHolder(view_holder)*/
+      val view_binding : NewsItemBinding =
+          DataBindingUtil.inflate(LayoutInflater.from(parent.context),R.layout.news_item,parent,false)
+          return NewsViewHolder(view_binding)
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val item = list_item?.get(position)
-        holder.author_text.text = item?.author
-        holder.title_text.text = item?.title
-        holder.date_text.text = item?.publishedAt
-        Glide.with(holder.itemView)
-            .load(item?.urlToImage)
-            .into(holder.news_rounded_image)
+        holder.bind(item)
         if(on_item_click_listeners != null){
            holder.itemView.setOnClickListener {
                on_item_click_listeners?.onItemClick(position,item!!)
@@ -52,4 +48,5 @@ class NewAdapter(var list_item: List<ArticlesItem?>?) :
         list_item = data
         notifyDataSetChanged()
     }
+
 }

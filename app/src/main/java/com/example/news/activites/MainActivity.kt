@@ -1,7 +1,4 @@
 package com.example.news.activites
-
-import ArticlesItem
-import NewsResponse
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,10 +8,13 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.news.Constants
 import com.example.news.R
-import com.example.news.adapter.NewAdapter
+import com.example.news.news.NewAdapter
 import com.example.news.api.ApiManger
+import com.example.news.model.ArticlesItem
+import com.example.news.model.NewsResponse
 import com.example.news.model.SourceResponse
 import com.example.news.model.SourcesItem
+import com.example.news.newsitem.NewsItemActivity
 import com.google.android.material.tabs.TabLayout
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         news_adapter = NewAdapter(null)
         news_recycler_view.adapter=news_adapter
 
-        news_adapter.on_item_click_listeners = object :NewAdapter.OnItemClickListeners{
+        news_adapter.on_item_click_listeners = object : NewAdapter.OnItemClickListeners{
             override fun onItemClick(position: Int, atrical_item: ArticlesItem) {
                 val intent = Intent(this@MainActivity, NewsItemActivity::class.java)
                 intent.putExtra(Constants.EXTRA_ITEM_DETAILS,atrical_item.description)
