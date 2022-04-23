@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,16 +13,17 @@ import com.example.news.Constants
 import com.example.news.R
 import com.example.news.categories.Category
 import com.example.news.databinding.FragmentNewsBinding
-import com.example.news.model.ArticlesItem
-import com.example.news.model.SourcesItem
+import com.example.domain.model.ArticlesItem
+import com.example.domain.model.SourcesItem
 import com.example.news.newsitem.NewsItemActivity
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class NewsFragment : Fragment() {
-    lateinit var fragment_news_databinding: FragmentNewsBinding
-    lateinit var news_adapter: NewAdapter
-    lateinit var news_view_model: NewsViewModel
+    lateinit var fragmentNewsDatabinding: FragmentNewsBinding
+    lateinit var newsViewModel: NewsViewModel
 
     companion object {
         fun getInstance(category: Category): NewsFragment {
@@ -34,6 +34,7 @@ class NewsFragment : Fragment() {
     }
 
     var category = Category("", 0, 0, 0)
+    @Inject lateinit var newsAdapter : NewAdapter
 
 
     override fun onCreateView(
@@ -41,9 +42,9 @@ class NewsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        fragment_news_databinding =
+        fragmentNewsDatabinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_news, container, false)
-        return fragment_news_databinding.root
+        return fragmentNewsDatabinding.root
 
         //return inflater.inflate(R.layout.fragment_news,container,false)
     }
@@ -53,41 +54,43 @@ class NewsFragment : Fragment() {
         //initialize
         initViews()
         subscribesToLiveData()
-        news_view_model.getNewsResources(category)
+        newsViewModel.getNewsResources(category)
     }
 
     fun subscribesToLiveData() {
-        news_view_model.sources_livedata.observe(viewLifecycleOwner) {
+        newsViewModel.sourcesLivedata.observe(viewLifecycleOwner) {
             addSourcesToTabLayout(it)
         }
-        news_view_model.news_live_data.observe(viewLifecycleOwner) {
+        newsViewModel.newsLiveData.observe(viewLifecycleOwner) {
             showNews(it)
         }
-        news_view_model.progress_bar_live_data.observe(viewLifecycleOwner) {
-            fragment_news_databinding.mainActivityProgressBar.isVisible = it
+        newsViewModel.progressBarLiveData.observe(viewLifecycleOwner) {
+            fragmentNewsDatabinding.mainActivityProgressBar.isVisible = it
         }
-        news_view_model.message_live_data.observe(viewLifecycleOwner) {
+        newsViewModel.messageLiveData.observe(viewLifecycleOwner) {
             Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
+        }
+        newsViewModel.articleItemLiveData.observe(viewLifecycleOwner) {
+           showNews(it)
         }
     }
 
     fun showNews(news_list: List<ArticlesItem?>?) {
-        news_adapter.changData(news_list)
+        newsAdapter.changData(news_list!!)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        news_view_model = ViewModelProvider(this).get(NewsViewModel::class.java)
+        newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
     }
 
     private fun initViews() {
         /*tab_layout = requireView().findViewById(R.id.tab_layout)
         progress_bar =  requireView().findViewById(R.id.main_activity_progress_bar)
         news_recycler_view = requireView().findViewById(R.id.news_recycler_view)*/
-        news_adapter = NewAdapter(null)
-        fragment_news_databinding.newsRecyclerView.adapter = news_adapter
+        fragmentNewsDatabinding.newsRecyclerView.adapter = newsAdapter
 
-        news_adapter.on_item_click_listeners = object : NewAdapter.OnItemClickListeners {
+        newsAdapter.on_item_click_listeners = object : NewAdapter.OnItemClickListeners {
             override fun onItemClick(position: Int, atrical_item: ArticlesItem) {
                 val intent = Intent(requireContext(), NewsItemActivity::class.java)
                 intent.putExtra(Constants.EXTRA_ITEM_DETAILS, atrical_item.description)
@@ -104,16 +107,16 @@ class NewsFragment : Fragment() {
 
     private fun addSourcesToTabLayout(sources: List<SourcesItem?>?) {
         sources?.forEach {
-            val sources_tab_layout = fragment_news_databinding.tabLayout.newTab()
+            val sources_tab_layout = fragmentNewsDatabinding.tabLayout.newTab()
             sources_tab_layout.setText(it?.name)
             sources_tab_layout.tag = it
-            fragment_news_databinding.tabLayout.addTab(sources_tab_layout)
+            fragmentNewsDatabinding.tabLayout.addTab(sources_tab_layout)
         }
-        fragment_news_databinding.tabLayout.addOnTabSelectedListener(object :
+        fragmentNewsDatabinding.tabLayout.addOnTabSelectedListener(object :
             TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val source = tab?.tag as SourcesItem
-                news_view_model.getNewBySource(source)
+                newsViewModel.getNewBySource(source)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -122,12 +125,12 @@ class NewsFragment : Fragment() {
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 val source = tab?.tag as SourcesItem
-                news_view_model.getNewBySource(source)
+                newsViewModel.getNewBySource(source)
             }
 
         })
 
-        fragment_news_databinding.tabLayout.getTabAt(0)?.select()
+        fragmentNewsDatabinding.tabLayout.getTabAt(0)?.select()
 
     }
 

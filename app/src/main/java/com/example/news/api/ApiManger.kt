@@ -2,6 +2,7 @@ package com.example.news.api
 
 
 import android.util.Log
+import com.example.news.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -25,7 +26,7 @@ class ApiManger {
 
                 retrofit = Retrofit
                     .Builder().client(client)
-                    .baseUrl("https://newsapi.org/")
+                    .baseUrl(Constants.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create()).build()
             }
             return retrofit!!

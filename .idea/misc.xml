@@ -5,8 +5,10 @@
       <map>
         <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/drawable-anydpi/ic_category.xml" value="0.1405" />
         <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/drawable-anydpi/ic_list.xml" value="0.1" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/drawable-anydpi/ic_search.xml" value="0.1165" />
         <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/drawable-anydpi/ic_settings.xml" value="0.1405" />
         <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/drawable-v24/tab_unselected_background.xml" value="0.1" />
+        <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/drawable/edit_text_background.xml" value="0.1" />
         <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/drawable/tab_background.xml" value="0.1" />
         <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/drawable/tab_selected_background.xml" value="0.1" />
         <entry key="..\:/Route/Android/my_projcts/News/app/src/main/res/drawable/toolbar_background.xml" value="0.1" />

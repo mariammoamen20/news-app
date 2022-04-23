@@ -11,13 +11,14 @@ import com.example.news.R
 import com.example.news.categories.CategoriesFragment
 import com.example.news.categories.Category
 import com.example.news.news.NewsFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     lateinit var drawer_layout: DrawerLayout
     lateinit var image_drawe: ImageView
     lateinit var categerioes_icon: View
-    lateinit var toolbar_text : TextView
+//    lateinit var toolbar_text : TextView
     val categories_fragment = CategoriesFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,9 +40,9 @@ class HomeActivity : AppCompatActivity() {
 
         drawer_layout = findViewById(R.id.drawer_layout)
         image_drawe = findViewById(R.id.toolbar_image)
-        toolbar_text = findViewById(R.id.toolbar_title)
+        //toolbar_text = findViewById(R.id.toolbar_title)
         categerioes_icon = findViewById(R.id.categories_linear_layout)
-        toolbar_text.text = "Category"
+        //toolbar_text.text = "Category"
 
         clickListeners()
     }
@@ -52,7 +53,7 @@ class HomeActivity : AppCompatActivity() {
 
         categerioes_icon.setOnClickListener {
              pushFragment(categories_fragment)
-            toolbar_text.text = "Category"
+            //toolbar_text.text = "Category"
             drawer_layout.close()
 
         }

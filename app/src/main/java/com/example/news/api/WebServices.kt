@@ -1,22 +1,29 @@
 package com.example.news.api
 
-import com.example.news.model.NewsResponse
-import com.example.news.model.SourceResponse
+import com.example.domain.model.NewsResponse
+import com.example.domain.model.SourceResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface WebServices {
-    @GET("v2/top-headlines/sources")
-    fun getSources(
+    @GET("v2/top-headlines/sources") //request
+    suspend fun getSources(
         @Query("apiKey")apiKey:String,
         @Query("category")category:String
-    ) :Call<SourceResponse>
+    ) : SourceResponse //response
 
     @GET("v2/everything")
-    fun getNewsResources(
+    suspend fun getNewsResources(
         @Query("apiKey")apiKey : String,
         @Query("sources")sources:String
-    ):Call<NewsResponse>
+    ): NewsResponse
 
+
+    @GET("v2/everything")
+    fun searchNewsResources(
+        @Query("apiKey")apiKey : String,
+        @Query("q")q : String,
+        @Query("sources")sources:String
+    ):Call<NewsResponse>
 }

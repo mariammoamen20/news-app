@@ -6,10 +6,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.news.R
 import com.example.news.databinding.NewsItemBinding
-import com.example.news.model.ArticlesItem
+import com.example.domain.model.ArticlesItem
 
-class NewAdapter(var list_item: List<ArticlesItem?>?) :
+class NewAdapter() :
     RecyclerView.Adapter<NewAdapter.NewsViewHolder>() {
+    var list_item= listOf<ArticlesItem?>()
     class NewsViewHolder(val item_binding:NewsItemBinding) : RecyclerView.ViewHolder(item_binding.root) {
         fun bind(artical_item : ArticlesItem? ){
              item_binding.item = artical_item
@@ -44,7 +45,7 @@ class NewAdapter(var list_item: List<ArticlesItem?>?) :
         fun onItemClick(position: Int, atrical_item : ArticlesItem)
     }
 
-    fun changData(data : List<ArticlesItem?>?) {
+    fun changData(data : List<ArticlesItem?>) {
         list_item = data
         notifyDataSetChanged()
     }
